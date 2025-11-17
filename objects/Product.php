@@ -16,4 +16,14 @@ class Product
     public function __construct($db){
         $this->conn = $db;
     }
+    function read(){
+        $query = "SELECT c.name as category_name,p.id,p.name,
+                         p.description,p.price,p.created,p.category_id
+                    FROM $this->table p LEFt JOIN categories c ON 
+                        p.category_id = c.id
+                    ORDER BY p.created DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
