@@ -16,5 +16,6 @@ class Database
         catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
+        return $this->conn;
     }
 }
