@@ -26,4 +26,11 @@ class Product
         $stmt->execute();
         return $stmt;
     }
+
+    function create()
+    {
+        $query = "INSERT INTO $this->table (name,description,price,created,category_id)
+values (:name,:description,:price,:created,:category_id)";
+
+    }
 }
