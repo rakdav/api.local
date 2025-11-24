@@ -141,4 +141,37 @@ class Product
         }
         return false;
     }
+
+    public function search($keywords)
+    {
+        // поиск записей (товаров) по "названию товара", "описанию товара", "названию категории"
+        $query = "SELECT
+            c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
+        FROM
+            " . $this->table . " p
+            LEFT JOIN
+                categories c
+                    ON p.category_id = c.id
+        WHERE
+            p.name LIKE ? OR p.description LIKE ? OR c.name LIKE ?
+        ORDER BY
+            p.created DESC";
+
+        // подготовка запроса
+        $stmt = $this->conn->prepare($query);
+
+        // очистка
+        $keywords = htmlspecialchars(strip_tags($keywords));
+        $keywords = "%{$keywords}%";
+
+        // привязка
+        $stmt->bindParam(1, $keywords);
+        $stmt->bindParam(2, $keywords);
+        $stmt->bindParam(3, $keywords);
+
+        // выполняем запрос
+        $stmt->execute();
+
+        return $stmt;
+    }
 }

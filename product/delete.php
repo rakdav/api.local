@@ -1,6 +1,7 @@
 <?php
 
 // HTTP-заголовки
+
 use objects\Product;
 
 header("Access-Control-Allow-Origin: *");

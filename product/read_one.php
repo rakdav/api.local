@@ -9,7 +9,7 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 // подключение файла для соединения с базой и файл с объектом
-include_once "../config/database.php";
+include_once "../config/Database.php";
 include_once "../objects/product.php";
 
 // получаем соединение с базой данных
